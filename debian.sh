@@ -35,10 +35,11 @@ clear
 case $CHOICE in
         1)
             sudo apt install -y build-essential emacs opencubicplayer vlc cmake autoconf automake joe 
-	    ./cleaninstall.sh
+	    ./debian.sh
 	    ;;
         2)
 	    # Start by downloading and installing the icon package required by Bluebird
+     	#directory things
 	    cd ~/                            # Make sure we are in the home dir 
 	    mkdir git                        
 	    cd git
@@ -57,15 +58,15 @@ case $CHOICE in
 	    make -j $n0
 	    sudo make install
 	    cd ~/
-	    ./cleaninstall.sh
+	    ./debian.sh
             ;;
         3)
             sudo apt install -y telegram-desktop
 	    # More programs will go here soon
-	    ./cleaninstall.sh
+	    ./debian.sh
             ;;
 	4)
 	    sudo apt install libvte-2.91-dev libsdl2-dev
-	    ./cleaninstall.sh
+	    ./debian.sh
 	    ;;
 esac
