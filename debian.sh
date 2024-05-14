@@ -8,6 +8,25 @@
 #  -------------------------------------------------
 
 # Start before the menu
+clear
+echo "Checking for prerequisites"
+	if ! command -v git &> /dev/null
+	then
+		echo "Installing git..."
+		sudo apt install -y git
+	else
+		echo "Git Found!"
+	fi
+	# check for dialog
+	if ! command -v dialog &> /dev/null
+	then
+		echo "Installing dialog..."
+		sudo apt install -y dialog
+	else
+		echo "Dialog Found!"
+	fi
+sleep 5		# let 'er rest for a lil bit so it's not crazy
+clear
 echo "T3K's fresh install script - Debian Edition"
 echo "-------------------------------------------"
 read -r -p "How many cores: " n0
