@@ -10,7 +10,7 @@
 # Start before the menu
 clear
 echo "Checking for prerequisites"
-	if ! command -v git &> /dev/null
+	if ! command -v git &> /dev/null	# check to see if git is installed, if it isnt, install it
 	then
 		echo "Installing git..."
 		sudo apt install -y git
@@ -29,7 +29,8 @@ sleep 5		# let 'er rest for a lil bit so it's not crazy
 clear
 echo "T3K's fresh install script - Debian Edition"
 echo "-------------------------------------------"
-read -r -p "How many cores: " n0
+read -r -p "How many cores: " n0			# makes a flag for gcc/g++ to read from for core count
+# ---- DIALOG SETTINGS ----
 HEIGHT=15
 WIDTH=40
 CHOICE_HEIGHT=4
@@ -49,12 +50,12 @@ CHOICE=$(dialog --clear \
                 $HEIGHT $WIDTH $CHOICE_HEIGHT \
                 "${OPTIONS[@]}" \
                 2>&1 >/dev/tty)
-
+# ---- END DIALOG SETTINGS ----
 clear
 case $CHOICE in
         1)
             sudo apt install -y build-essential emacs opencubicplayer vlc cmake autoconf automake joe 
-	    ./debian.sh
+	    	./debian.sh # restart the program
 	    ;;
         2)
 	    # Start by downloading and installing the icon package required by Bluebird
@@ -82,10 +83,10 @@ case $CHOICE in
         3)
             sudo apt install -y telegram-desktop
 	    # More programs will go here soon
-	    ./debian.sh
+	    	./debian.sh
             ;;
 	4)
 	    sudo apt install libvte-2.91-dev libsdl2-dev
-	    ./debian.sh
+	    	./debian.sh
 	    ;;
 esac
