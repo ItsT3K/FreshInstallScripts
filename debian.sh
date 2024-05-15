@@ -10,7 +10,7 @@
 # Start before the menu
 clear
 echo "Checking for prerequisites"
-	if ! command -v git &> /dev/null	# check to see if git is installed, if it isnt, install it
+	if ! command -v git &> /dev/null
 	then
 		echo "Installing git..."
 		sudo apt install -y git
@@ -29,8 +29,7 @@ sleep 5		# let 'er rest for a lil bit so it's not crazy
 clear
 echo "T3K's fresh install script - Debian Edition"
 echo "-------------------------------------------"
-read -r -p "How many cores: " n0			# makes a flag for gcc/g++ to read from for core count
-# ---- DIALOG SETTINGS ----
+read -r -p "How many cores: " n0
 HEIGHT=15
 WIDTH=40
 CHOICE_HEIGHT=4
@@ -41,7 +40,8 @@ MENU="Choose one of the following options:"
 OPTIONS=(1 "Install The Basics"
          2 "Install Bluebird"
          3 "Install Telegram"
-	 4 "Install other libraries")
+	 4 "Install other libraries"
+	 5 "Install SDR Tools")
 
 CHOICE=$(dialog --clear \
                 --backtitle "$BACKTITLE" \
@@ -50,12 +50,12 @@ CHOICE=$(dialog --clear \
                 $HEIGHT $WIDTH $CHOICE_HEIGHT \
                 "${OPTIONS[@]}" \
                 2>&1 >/dev/tty)
-# ---- END DIALOG SETTINGS ----
+
 clear
 case $CHOICE in
         1)
             sudo apt install -y build-essential emacs opencubicplayer vlc cmake autoconf automake joe 
-	    	./debian.sh # restart the program
+	    ./debian.sh
 	    ;;
         2)
 	    # Start by downloading and installing the icon package required by Bluebird
@@ -83,10 +83,29 @@ case $CHOICE in
         3)
             sudo apt install -y telegram-desktop
 	    # More programs will go here soon
-	    	./debian.sh
+	    ./debian.sh
             ;;
 	4)
 	    sudo apt install libvte-2.91-dev libsdl2-dev
-	    	./debian.sh
+	    ./debian.sh
 	    ;;
+	5) #Install SDR Stuff
+	    sudo apt install -y rtl-sdr libfftw3-dev libglfw3-dev libvolk2-dev libzstd-dev libairspyhf-dev libiio-dev libad9361-dev librtaudio-dev libhackrf-dev libairspy-dev librtlsdr-dev
+	    if test -d ~/git; then
+                echo "git directory found!"
+		cd git
+	    else
+		echo "no git directory :("
+		mkdir git
+		cd git
+	    fi
+	    git clone https://github.com/AlexandreRouma/sdrplusplus
+	    cd sdrplusplus
+	    mkdir build
+	    cd build
+	    cmake ..
+	    make -j $n0
+	    sudo make install -j $n0
+	    cd ~/
+	    ./debian.sh
 esac
