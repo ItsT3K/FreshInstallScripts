@@ -54,7 +54,7 @@ CHOICE=$(dialog --clear \
 clear
 case $CHOICE in
         1)
-            sudo apt install -y build-essential emacs opencubicplayer vlc cmake autoconf automake joe 
+            sudo apt install -y build-essential emacs opencubicplayer vlc cmake autoconf automake joe xscreensaver*
 	    ./debian.sh
 	    ;;
         2)
